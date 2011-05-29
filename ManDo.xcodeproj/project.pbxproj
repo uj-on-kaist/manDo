@@ -1,0 +1,286 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		31188F491392627100AE833D /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 31188F481392627100AE833D /* UIKit.framework */; };
+		31188F4B1392627100AE833D /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 31188F4A1392627100AE833D /* Foundation.framework */; };
+		31188F4D1392627100AE833D /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 31188F4C1392627100AE833D /* CoreGraphics.framework */; };
+		31188F531392627200AE833D /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 31188F511392627200AE833D /* InfoPlist.strings */; };
+		31188F561392627200AE833D /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 31188F551392627200AE833D /* main.m */; };
+		31188F591392627200AE833D /* ManDoAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 31188F581392627200AE833D /* ManDoAppDelegate.m */; };
+		31188F5C1392627200AE833D /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 31188F5A1392627200AE833D /* MainWindow.xib */; };
+		31188F5F1392627200AE833D /* ManDoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 31188F5E1392627200AE833D /* ManDoViewController.m */; };
+		31188F621392627200AE833D /* ManDoViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 31188F601392627200AE833D /* ManDoViewController.xib */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		31188F441392627100AE833D /* ManDo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ManDo.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		31188F481392627100AE833D /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		31188F4A1392627100AE833D /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		31188F4C1392627100AE833D /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		31188F501392627200AE833D /* ManDo-Info.plist */ = {isa = PBXFileReference; path = "ManDo-Info.plist"; sourceTree = "<group>"; };
+		31188F521392627200AE833D /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		31188F541392627200AE833D /* ManDo-Prefix.pch */ = {isa = PBXFileReference; path = "ManDo-Prefix.pch"; sourceTree = "<group>"; };
+		31188F551392627200AE833D /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		31188F571392627200AE833D /* ManDoAppDelegate.h */ = {isa = PBXFileReference; path = ManDoAppDelegate.h; sourceTree = "<group>"; };
+		31188F581392627200AE833D /* ManDoAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ManDoAppDelegate.m; sourceTree = "<group>"; };
+		31188F5B1392627200AE833D /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MainWindow.xib; sourceTree = "<group>"; };
+		31188F5D1392627200AE833D /* ManDoViewController.h */ = {isa = PBXFileReference; path = ManDoViewController.h; sourceTree = "<group>"; };
+		31188F5E1392627200AE833D /* ManDoViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ManDoViewController.m; sourceTree = "<group>"; };
+		31188F611392627200AE833D /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/ManDoViewController.xib; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		31188F411392627100AE833D /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				31188F491392627100AE833D /* UIKit.framework in Frameworks */,
+				31188F4B1392627100AE833D /* Foundation.framework in Frameworks */,
+				31188F4D1392627100AE833D /* CoreGraphics.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		31188F391392627100AE833D = {
+			isa = PBXGroup;
+			children = (
+				31188F4E1392627100AE833D /* ManDo */,
+				31188F471392627100AE833D /* Frameworks */,
+				31188F451392627100AE833D /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		31188F451392627100AE833D /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				31188F441392627100AE833D /* ManDo.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		31188F471392627100AE833D /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				31188F481392627100AE833D /* UIKit.framework */,
+				31188F4A1392627100AE833D /* Foundation.framework */,
+				31188F4C1392627100AE833D /* CoreGraphics.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		31188F4E1392627100AE833D /* ManDo */ = {
+			isa = PBXGroup;
+			children = (
+				31188F571392627200AE833D /* ManDoAppDelegate.h */,
+				31188F581392627200AE833D /* ManDoAppDelegate.m */,
+				31188F5A1392627200AE833D /* MainWindow.xib */,
+				31188F5D1392627200AE833D /* ManDoViewController.h */,
+				31188F5E1392627200AE833D /* ManDoViewController.m */,
+				31188F601392627200AE833D /* ManDoViewController.xib */,
+				31188F4F1392627200AE833D /* Supporting Files */,
+			);
+			path = ManDo;
+			sourceTree = "<group>";
+		};
+		31188F4F1392627200AE833D /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				31188F501392627200AE833D /* ManDo-Info.plist */,
+				31188F511392627200AE833D /* InfoPlist.strings */,
+				31188F541392627200AE833D /* ManDo-Prefix.pch */,
+				31188F551392627200AE833D /* main.m */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		31188F431392627100AE833D /* ManDo */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 31188F651392627200AE833D /* Build configuration list for PBXNativeTarget "ManDo" */;
+			buildPhases = (
+				31188F401392627100AE833D /* Sources */,
+				31188F411392627100AE833D /* Frameworks */,
+				31188F421392627100AE833D /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = ManDo;
+			productName = ManDo;
+			productReference = 31188F441392627100AE833D /* ManDo.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		31188F3B1392627100AE833D /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				ORGANIZATIONNAME = KAIST;
+			};
+			buildConfigurationList = 31188F3E1392627100AE833D /* Build configuration list for PBXProject "ManDo" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 31188F391392627100AE833D;
+			productRefGroup = 31188F451392627100AE833D /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				31188F431392627100AE833D /* ManDo */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		31188F421392627100AE833D /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				31188F531392627200AE833D /* InfoPlist.strings in Resources */,
+				31188F5C1392627200AE833D /* MainWindow.xib in Resources */,
+				31188F621392627200AE833D /* ManDoViewController.xib in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		31188F401392627100AE833D /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				31188F561392627200AE833D /* main.m in Sources */,
+				31188F591392627200AE833D /* ManDoAppDelegate.m in Sources */,
+				31188F5F1392627200AE833D /* ManDoViewController.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		31188F511392627200AE833D /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				31188F521392627200AE833D /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		31188F5A1392627200AE833D /* MainWindow.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				31188F5B1392627200AE833D /* en */,
+			);
+			name = MainWindow.xib;
+			sourceTree = "<group>";
+		};
+		31188F601392627200AE833D /* ManDoViewController.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				31188F611392627200AE833D /* en */,
+			);
+			name = ManDoViewController.xib;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		31188F631392627200AE833D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = DEBUG;
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_VERSION = com.apple.compilers.llvmgcc42;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		31188F641392627200AE833D /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_VERSION = com.apple.compilers.llvmgcc42;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
+				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
+				SDKROOT = iphoneos;
+			};
+			name = Release;
+		};
+		31188F661392627200AE833D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				COPY_PHASE_STRIP = NO;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "ManDo/ManDo-Prefix.pch";
+				INFOPLIST_FILE = "ManDo/ManDo-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		31188F671392627200AE833D /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				COPY_PHASE_STRIP = YES;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "ManDo/ManDo-Prefix.pch";
+				INFOPLIST_FILE = "ManDo/ManDo-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				VALIDATE_PRODUCT = YES;
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		31188F3E1392627100AE833D /* Build configuration list for PBXProject "ManDo" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				31188F631392627200AE833D /* Debug */,
+				31188F641392627200AE833D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		31188F651392627200AE833D /* Build configuration list for PBXNativeTarget "ManDo" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				31188F661392627200AE833D /* Debug */,
+				31188F671392627200AE833D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 31188F3B1392627100AE833D /* Project object */;
+}
