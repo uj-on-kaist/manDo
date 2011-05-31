@@ -8,14 +8,12 @@
 
 #import <UIKit/UIKit.h>
 
-@class ManDoViewController;
 
 @interface ManDoAppDelegate : NSObject <UIApplicationDelegate> {
-
+    UIWindow *window;
 }
 
 @property (nonatomic, retain) IBOutlet UIWindow *window;
 
-@property (nonatomic, retain) IBOutlet ManDoViewController *viewController;
 
 @end

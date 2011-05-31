@@ -10,19 +10,65 @@
 
 #import "ManDoViewController.h"
 
+#import "MainTabBarController.h"
+#import "SignUpController.h"
+#import "SignInController.h"
+#import "Three20TestView.h"
+#import "TestViewController.h"
+
+
+#import "MessageViewController.h"
+#import "HistoryViewController.h"
+#import "SettingViewController.h"
+
+#import "MessageUploadController.h"
+
+#import "StyleSheet.h"
+#import "Three20/Three20.h"
 @implementation ManDoAppDelegate
 
 
-@synthesize window=_window;
+@synthesize window;
 
-@synthesize viewController=_viewController;
+#pragma mark -
+#pragma mark Application lifecycle
+- (void)applicationDidFinishLaunching:(UIApplication*)application {
+	[TTStyleSheet setGlobalStyleSheet:[[[StyleSheet alloc] init] autorelease]];
+    
+	TTNavigator* navigator = [TTNavigator navigator];
+	//navigator.supportsShakeToReload = YES;
+	navigator.persistenceMode = TTNavigatorPersistenceModeAll;
+	
+	TTURLMap* map = navigator.URLMap;
+	[map from:@"*" toViewController:[TTWebController class]];
+    [map from:@"tt://tabbar" toSharedViewController:[MainTabBarController class]];
+    
+    [map from:@"tt://signup" toViewController:[SignUpController class]];
+    [map from:@"tt://signin" toSharedViewController:[SignInController class]];
+    
+    [map from:@"tt://home" toViewController:[ManDoViewController class]];
+    [map from:@"tt://history" toViewController:[HistoryViewController class]];
+    [map from:@"tt://message" toViewController:[MessageViewController class]];
+    [map from:@"tt://setting" toViewController:[SettingViewController class]];
+    
+    
+    [map from:@"tt://upload/message" toViewController:[MessageUploadController class]];
+    
+    
+    [map from:@"tt://test" toViewController:[Three20TestView class]];
+    
+	//if (![navigator restoreViewControllers]) {
+    //[navigator openURLAction:[TTURLAction actionWithURLPath:@"tt://about"]];
+    //[navigator openURLAction:[TTURLAction actionWithURLPath:@"tt://a"]];
+    
+    [navigator openURLAction:[TTURLAction actionWithURLPath:@"tt://signin"]];
+    
+    window.backgroundColor=[UIColor clearColor];
+	//}
+}
 
-- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
-{
-    // Override point for customization after application launch.
-     
-    self.window.rootViewController = self.viewController;
-    [self.window makeKeyAndVisible];
+- (BOOL)application:(UIApplication*)application handleOpenURL:(NSURL*)URL {
+    [[TTNavigator navigator] openURLAction:[TTURLAction actionWithURLPath:URL.absoluteString]];
     return YES;
 }
 
@@ -67,8 +113,7 @@
 
 - (void)dealloc
 {
-    [_window release];
-    [_viewController release];
+    [window release];
     [super dealloc];
 }
 
