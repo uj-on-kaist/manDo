@@ -42,9 +42,10 @@
 	TTURLMap* map = navigator.URLMap;
 	[map from:@"*" toViewController:[TTWebController class]];
     [map from:@"tt://tabbar" toSharedViewController:[MainTabBarController class]];
+    [map from:@"tt://tabbar/(refresh:)" toSharedViewController:[MainTabBarController class]];
     
     [map from:@"tt://signup" toViewController:[SignUpController class]];
-    [map from:@"tt://signin" toSharedViewController:[SignInController class]];
+    [map from:@"tt://signin" toModalViewController:[SignInController class]];
     
     [map from:@"tt://home" toViewController:[ManDoViewController class]];
     [map from:@"tt://history" toViewController:[HistoryViewController class]];
@@ -61,7 +62,7 @@
     //[navigator openURLAction:[TTURLAction actionWithURLPath:@"tt://about"]];
     //[navigator openURLAction:[TTURLAction actionWithURLPath:@"tt://a"]];
     
-    [navigator openURLAction:[TTURLAction actionWithURLPath:@"tt://signin"]];
+    [navigator openURLAction:[TTURLAction actionWithURLPath:@"tt://tabbar"]];
     
     window.backgroundColor=[UIColor clearColor];
 	//}

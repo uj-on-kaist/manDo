@@ -22,10 +22,10 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self setTabURLs:[NSArray arrayWithObjects:@"tt://home",
+    [self setTabURLs:[NSArray arrayWithObjects:@"tt://setting",
+                      @"tt://home",
                       @"tt://history",
                       @"tt://message",
-                      @"tt://setting",
                       nil]];
     
     CGRect frame = CGRectMake(0.0, 0.0, self.view.bounds.size.width, 48);

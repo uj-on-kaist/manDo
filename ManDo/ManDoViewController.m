@@ -11,6 +11,8 @@
 #import "MessageTableViewCell.h"
 
 #import "Three20/Three20+Additions.h"
+
+#import "UserInfoContainer.h"
 @implementation ManDoViewController
 
 @synthesize _tableView;
@@ -18,15 +20,15 @@
 {
     self = [super initWithNibName:nil bundle:nil];
     if (self) {
+        self.title=@"Query";
+        self.tabBarItem.image=[UIImage imageNamed:@"setting.png"];
         
-        self.title=@"Home";
         
-        self.tabBarItem.title=@"Home";
-        self.tabBarItem.image=[UIImage imageNamed:@"house.png"];
         
         self.view.backgroundColor=[UIColor whiteColor];
-        self.navigationItem.rightBarButtonItem=[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCompose target:self action:@selector(composeNew)];
-        
+        if(![[UserInfoContainer sharedInfo] isMale]){
+            self.navigationItem.rightBarButtonItem=nil;
+        }
         TTView *tab=[[TTView alloc] initWithFrame:CGRectMake(0, 0, 320, 39)];
         tab.style=TTSTYLE(main_tab);
         [self.view addSubview:tab];
@@ -62,10 +64,18 @@
     return self;
 }
 
+-(void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    if(![[UserInfoContainer sharedInfo] isMale]){
+        self.navigationItem.rightBarButtonItem=[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCompose target:self action:@selector(composeNew)];
+    }
+}
+
 - (void)dealloc
 {
     [super dealloc];
 }
+
 
 -(void)composeNew{
     TTURLAction *action = [TTURLAction actionWithURLPath:@"tt://upload/message"];

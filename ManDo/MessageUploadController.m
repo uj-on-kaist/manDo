@@ -9,6 +9,13 @@
 #import "MessageUploadController.h"
 
 
+#import "UserInfoContainer.h"
+
+
+#import "ASIFormDataRequest.h"
+
+#import "NSDictionary_JSONExtensions.h"
+
 @implementation MessageUploadController
 
 @synthesize imagePickerController;
@@ -68,9 +75,46 @@
 }
 
 -(void)post{
-    NSLog(@"Post Clicked");
+    NSLog(@"Post Clicked : USER : %@",[[UserInfoContainer sharedInfo] phone]);
     NSLog(@"%@",self.textView.text);
     NSLog(@"%f %f",_mapView.coordinate.latitude, _mapView.coordinate.longitude);
+    
+    //[[UserInfoContainer sharedInfo] phone]
+    ASIFormDataRequest *request = [ASIFormDataRequest requestWithURL:[NSURL URLWithString:REGISTER_URL]];
+    [request addPostValue:[[UserInfoContainer sharedInfo] phone] forKey:@"phone"];
+    [request addPostValue:self.textView.text forKey:@"message"];
+    [request addPostValue:[NSString stringWithFormat:@"%f",_mapView.coordinate.latitude] forKey:@"lat"];
+    [request addPostValue:[NSString stringWithFormat:@"%f",_mapView.coordinate.longitude] forKey:@"lng"];
+    [self showHUD:@"Loading" type:TYPE_LOADING];
+    [request startSynchronous];
+    NSError *error = [request error];
+    if (!error) {
+        [HUD hide:YES];
+        NSString *response = [request responseString];
+        
+        NSError *jsonError = NULL;
+        NSDictionary *resultDict = [NSDictionary dictionaryWithJSONString:response error:&jsonError];
+        if(!jsonError){
+            NSLog(@"%@",resultDict);
+            if([[resultDict objectForKey:@"code"] intValue] == 1){
+                [self showHUD:[resultDict objectForKey:@"message"] type:TYPE_ERROR];
+            }else{                
+                //TODO: Succes -> Set to UserInfoContainer & go to tabbar
+                BOOL animated = YES;
+                
+                [self.parentViewController viewWillAppear:animated];
+                [self dismissPopupViewControllerAnimated:animated];
+            }
+        }else{
+            NSLog(@"Original response: %@",response);
+        }
+        
+    }else{
+        [HUD hide:YES];
+        [self showHUD:[error localizedDescription] type:TYPE_ERROR];
+        NSLog(@"%@",[error localizedDescription]);
+    }
+    
     /*
      NSData* imageData;
      if(selectedImage != nil)
@@ -129,4 +173,43 @@
 
 }
 
+
+
+
+-(void *)showHUD:(NSString *)message type:(int)type{
+    HUD = [[MBProgressHUD alloc] initWithView:self.view];
+	
+    if(type != TYPE_LOADING){
+        NSString *filename=@"errorHUD.png";
+        
+        HUD.customView = [[[UIImageView alloc] initWithImage:[UIImage imageNamed:filename]] autorelease];
+        HUD.mode = MBProgressHUDModeCustomView;
+        HUD.labelText = message;
+    }
+    CGRect frame=HUD.frame;
+    frame.origin.y-=55;
+	HUD.frame=frame;
+    //HUD.labelText = @"Loading";
+    
+    [self.navigationController.view addSubview:HUD];
+    
+    if(type == TYPE_LOADING)
+        [HUD showWhileExecuting:@selector(longTask) onTarget:self withObject:nil animated:YES];
+    else
+        [HUD showWhileExecuting:@selector(myTask) onTarget:self withObject:nil animated:YES];
+    
+    return HUD;
+}
+-(void)myTask {
+    sleep(1);
+}
+-(void)longTask{
+    // This just increases the progress indicator in a loop
+    float progress = 0.0f;
+    while (progress < 1.0f) {
+        progress += 0.01f;
+        //HUD.progress = progress;
+        usleep(50000);
+    }
+}
 @end

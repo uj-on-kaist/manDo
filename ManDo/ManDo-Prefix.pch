@@ -12,3 +12,18 @@
     #import <UIKit/UIKit.h>
     #import <Foundation/Foundation.h>
 #endif
+
+
+#define SERVER_URL @"bit.sparcs.org:9999/"
+
+
+#define REGISTER_URL @"http://bit.sparcs.org:9999/accounts/register_user/"
+#define GET_USER_URL @"http://bit.sparcs.org:9999/accounts/get_user/"
+#define MODIFY_URL @"http://bit.sparcs.org:9999/accounts/modify_user/"
+
+#define TYPE_LOADING 0
+#define TYPE_SUCCESS 1
+#define TYPE_ERROR 2
+
+#define MAN_INDEX 0
+#define WOMAN_INDEX 1

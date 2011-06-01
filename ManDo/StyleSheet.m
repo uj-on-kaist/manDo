@@ -203,4 +203,13 @@
 - (UIColor*)toolbarTintColor {
     return RGBCOLOR(108, 140, 132);
 }
+
+- (UIColor*)tabBarTintColor {
+    return (UIColor*)TTSTYLE(profileHeaderView);
+}
+
+- (UIColor *)profileHeaderView{
+    return RGBCOLOR(48, 44, 41);
+}
+
 @end

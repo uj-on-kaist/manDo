@@ -11,6 +11,8 @@
 #import <Three20/Three20.h>
 
 #import "KaistMapView.h"
+
+#import "MBProgressHUD.h"
 @interface MessageUploadController : TTPostController <UINavigationControllerDelegate,UIImagePickerControllerDelegate, UIActionSheetDelegate> {
     KaistMapView *_mapView;
     
@@ -22,9 +24,11 @@
     UIImageView *checkImage;
     
     UIImagePickerController *imagePickerController;
+    
+    MBProgressHUD *HUD;
 }
 
 @property (nonatomic, retain) UIImagePickerController *imagePickerController;
 
-
+-(void *)showHUD:(NSString *)message type:(int)type;
 @end

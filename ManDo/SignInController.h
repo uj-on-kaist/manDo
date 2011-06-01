@@ -15,8 +15,11 @@
 @interface SignInController : TTViewController <UITableViewDelegate, UITableViewDataSource,UITextFieldDelegate>{
     UITableView *_tableView;
     
-    UITextField *idField;
+    UITextField *phoneField;
+    UITextField *nameField;
     UITextField *pwField;
+    
+    UISegmentedControl *genderSelector;
     
     MBProgressHUD *HUD;
 }
