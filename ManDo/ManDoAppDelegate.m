@@ -23,6 +23,8 @@
 
 #import "MessageUploadController.h"
 
+#import "QueryDetailView.h"
+
 #import "StyleSheet.h"
 #import "Three20/Three20.h"
 @implementation ManDoAppDelegate
@@ -42,7 +44,6 @@
 	TTURLMap* map = navigator.URLMap;
 	[map from:@"*" toViewController:[TTWebController class]];
     [map from:@"tt://tabbar" toSharedViewController:[MainTabBarController class]];
-    [map from:@"tt://tabbar/(refresh:)" toSharedViewController:[MainTabBarController class]];
     
     [map from:@"tt://signup" toViewController:[SignUpController class]];
     [map from:@"tt://signin" toModalViewController:[SignInController class]];
@@ -51,6 +52,8 @@
     [map from:@"tt://history" toViewController:[HistoryViewController class]];
     [map from:@"tt://message" toViewController:[MessageViewController class]];
     [map from:@"tt://setting" toViewController:[SettingViewController class]];
+    
+    [map from:@"tt://query/detail" toViewController:[QueryDetailView class]];
     
     
     [map from:@"tt://upload/message" toViewController:[MessageUploadController class]];
@@ -64,7 +67,13 @@
     
     [navigator openURLAction:[TTURLAction actionWithURLPath:@"tt://tabbar"]];
     
+    TTURLAction *action = [TTURLAction actionWithURLPath:@"tt://signin"];
+    [action setAnimated:YES];
+    [[TTNavigator navigator] openURLAction:action];
+    
     window.backgroundColor=[UIColor clearColor];
+    
+    
 	//}
 }
 

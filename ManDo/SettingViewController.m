@@ -73,6 +73,8 @@
         profile=[[EGOImageView alloc] initWithImage:[UIImage imageNamed:@"female.png"]];
         if([user isMale]){
             profile.image=[UIImage imageNamed:@"male.png"];
+        }else{
+            profile.image=[UIImage imageNamed:@"female.png"];
         }
         
         profile.frame=CGRectMake(10, 10, 100, 100);
@@ -228,6 +230,8 @@
     NSString *genderSymbol=@"♂";
     if([user isMale]){
         profile.image=[UIImage imageNamed:@"male.png"];
+    }else{
+        profile.image=[UIImage imageNamed:@"female.png"];
     }
 
     gender.text=[NSString stringWithFormat:@"%@ %@",user.name , genderSymbol];

@@ -34,6 +34,10 @@
 
 @property (nonatomic, retain) TTStyledTextLabel *msgLabel;
 
+
+@property (nonatomic, retain) UIImageView *photoView;
+
+@property (nonatomic, retain) UIImageView *geoView;
 //nameLabel,dateLabel,textView,msgLabel
 
 -(void)setMsgText:(NSString *)input;

@@ -18,8 +18,17 @@
 
 
 #define REGISTER_URL @"http://bit.sparcs.org:9999/accounts/register_user/"
-#define GET_USER_URL @"http://bit.sparcs.org:9999/accounts/get_user/"
+#define GET_USER_URL @"http://bit.sparcs.org:9999/accounts/get_user"
 #define MODIFY_URL @"http://bit.sparcs.org:9999/accounts/modify_user/"
+
+#define QUERY_REGISTER_URL @"http://bit.sparcs.org:9999/querys/query/"
+
+#define QUERY_LIST_URL @"http://bit.sparcs.org:9999/querys/get_query"
+
+#define QUERY_ANSWER_URL @"http://bit.sparcs.org:9999/querys/answer/"
+
+#define GET_HISTORY_URL @"http://bit.sparcs.org:9999/querys/get_history"
+
 
 #define TYPE_LOADING 0
 #define TYPE_SUCCESS 1

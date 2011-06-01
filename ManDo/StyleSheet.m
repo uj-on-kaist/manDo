@@ -122,7 +122,17 @@
     //return RGBCOLOR(255, 255, 250);
 }
 
-
+-(TTStyle *)answerButton:(UIControlState)state{
+    return [TTShapeStyle styleWithShape:[TTRoundedRectangleShape shapeWithRadius:TT_ROUNDED] next:
+            [TTInsetStyle styleWithInset:UIEdgeInsetsMake(1, 0, 1, 0) next:
+             [TTShadowStyle styleWithColor:RGBACOLOR(255,255,255,0.4) blur:0 offset:CGSizeMake(0, 1) next:
+              [TTSolidFillStyle styleWithColor:[UIColor whiteColor] next:
+               [TTInnerShadowStyle styleWithColor:RGBACOLOR(0,0,0,0.4) blur:3 offset:CGSizeMake(0, 2) next:
+                [TTBevelBorderStyle styleWithHighlight:RGBACOLOR(0,0,0,0.25) shadow:RGBACOLOR(0,0,0,0.4)
+                                                 width:1 lightSource:270 next:[TTTextStyle styleWithFont:nil color:TTSTYLEVAR(linkTextColor)
+                                                                                             shadowColor:[UIColor colorWithWhite:255 alpha:0.4]
+                                                                                            shadowOffset:CGSizeMake(0, -1) next:nil]]]]]]];
+}
 - (TTStyle*)embossedButton:(UIControlState)state {
     if (state == UIControlStateNormal) {
         return

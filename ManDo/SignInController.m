@@ -114,7 +114,49 @@
             if([[resultDict objectForKey:@"code"] intValue] == 1){
                 [self showHUD:[resultDict objectForKey:@"message"] type:TYPE_ERROR];
             }else{                
-                //TODO: Succes -> Set to UserInfoContainer & go to tabbar
+                //Succes -> Set to UserInfoContainer & go to tabbar
+                
+                ASIFormDataRequest *request = [ASIFormDataRequest requestWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@?phone=%@",GET_USER_URL,phone]]];
+                [self showHUD:@"Sign in..." type:TYPE_LOADING];
+                [request startSynchronous];
+                NSError *error = [request error];
+                if (!error) {
+                    [HUD hide:YES];
+                    NSString *response = [request responseString];
+                    
+                    NSError *jsonError = NULL;
+                    NSDictionary *resultDict = [NSDictionary dictionaryWithJSONString:response error:&jsonError];
+                    if(!jsonError){
+                        NSLog(@"%@",resultDict);
+                        if([[resultDict objectForKey:@"code"] intValue] == 1){
+                            [self showHUD:[resultDict objectForKey:@"message"] type:TYPE_ERROR];
+                        }else{                
+                            //TODO: Succes -> Set to UserInfoContainer & go to tabbar
+                            
+                            UserInfoContainer *user=[UserInfoContainer sharedInfo];
+                            
+                            user.phone=[resultDict objectForKey:@"phone"];
+                            user.gender=[resultDict objectForKey:@"gender"];
+                            user.name=[resultDict objectForKey:@"name"];
+                            user.age=[NSString stringWithFormat:@"%@",[resultDict objectForKey:@"age"]];
+                            user.majorIn=[resultDict objectForKey:@"major"];
+                            user.type=[resultDict objectForKey:@"girls_type"];
+                            
+                            
+                            
+                            [self dismissModalViewControllerAnimated:YES];
+                            return;
+                        }
+                    }else{
+                        NSLog(@"Original response: %@",response);
+                        
+                    }
+                    
+                }else{
+                    [HUD hide:YES];
+                    [self showHUD:[error localizedDescription] type:TYPE_ERROR];
+                    NSLog(@"%@",[error localizedDescription]);
+                }
             }
         }else{
             NSLog(@"Original response: %@",response);
@@ -271,7 +313,7 @@
         inputField=phoneField;
         [cell addSubview:genderSelector];
         inputField.placeholder=@"전화번호";
-        inputField.text=@"123";
+        inputField.text=@"321";
     }else{
         inputField=pwField;
         inputField.placeholder=@"비밀번호";

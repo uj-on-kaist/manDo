@@ -8,7 +8,9 @@
 
 #import <Foundation/Foundation.h>
 
+#import <sqlite3.h>
 
+@class  USER_GIRL;
 @interface UserInfoContainer : NSObject {
     NSString *phone;
     NSString *name;
@@ -17,6 +19,11 @@
     NSString *type;
     NSString *gender;
     NSString *imageURL;
+    
+    
+    sqlite3 *db;
+    
+    USER_GIRL *girls;
 }
 
 @property (nonatomic,retain) NSString *phone;
@@ -27,15 +34,12 @@
 @property (nonatomic,retain) NSString *gender;
 
 @property (nonatomic,retain) NSString *imageURL;
-/*
- 
- 
- 
- 
- */
 
 + (UserInfoContainer *)sharedInfo;
-
+-(NSMutableArray *)getMyList;
 -(BOOL)isMale;
 
+
+
+-(void)addGirl:(NSString *)phoneNumber;
 @end

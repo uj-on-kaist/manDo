@@ -11,7 +11,7 @@
 
 @implementation MessageTableViewCell
 
-@synthesize profileView,nameLabel,dateLabel,textView,msgLabel;
+@synthesize profileView,nameLabel,dateLabel,textView,msgLabel,geoView,photoView;
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {
@@ -57,11 +57,11 @@
         
         
         photoView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"slide.png"]];
-        photoView.frame=CGRectMake(295, 5, 16, 16);
+        photoView.frame=CGRectMake(295, 26, 16, 16);
         [self addSubview:photoView];
         
         geoView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"pinSmall.png"]];
-        geoView.frame=CGRectMake(295, 26, 16, 16);
+        geoView.frame=CGRectMake(295, 5, 16, 16);
         [self addSubview:geoView];
     }
     return self;
@@ -89,5 +89,7 @@
     
     dateLabel.frame=CGRectMake(44, msgLabel.frame.size.height+8, 320, 14);
 }
+
+
 
 @end
