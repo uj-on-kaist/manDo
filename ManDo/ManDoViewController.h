@@ -15,7 +15,7 @@
 
 
 #import "MBProgressHUD.h"
-@interface ManDoViewController : TTViewController <EGORefreshTableHeaderDelegate,UITableViewDelegate, UITableViewDataSource> {
+@interface ManDoViewController : TTViewController <EGORefreshTableHeaderDelegate,UITableViewDelegate, UITableViewDataSource,MKMapViewDelegate> {
     UITableView *_tableView;
     EGORefreshTableHeaderView *_refreshHeaderView;
     BOOL _reloading;
@@ -35,7 +35,11 @@
 -(void)recentBtnClicked;
 -(void)mapBtnClicked;
 
+
+-(void)addMarkers;
 -(void *)showHUD:(NSString *)message type:(int)type;
 
 -(void)getQuerys;
+
+-(void)didSelectAnnotation:(NSDictionary *)item;
 @end

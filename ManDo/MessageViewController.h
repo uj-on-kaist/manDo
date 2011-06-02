@@ -10,8 +10,10 @@
 #import "Three20/Three20.h"
 
 
-@interface MessageViewController : TTViewController {
+@interface MessageViewController : TTViewController <UITableViewDataSource, UITableViewDelegate>{
+    UITableView *_tableView;
     
+    NSMutableArray *array;
 }
 
 @end

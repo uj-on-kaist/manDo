@@ -19,6 +19,9 @@
 
 
 #import "QueryDetailView.h"
+
+
+#import "QueryMarker.h"
 @implementation ManDoViewController
 
 @synthesize _tableView;
@@ -73,11 +76,14 @@
         cover.backgroundColor=(UIColor *)TTSTYLE(backgroundColor);
         
         
+        UIImageView* bg1=[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"ask_KAIST.png"]];
+        bg1.frame=CGRectMake(0,0,320,366);
+        [cover addSubview:bg1];
         //[cover addTarget:self action:@selector(composeNew) forControlEvents:UIControlEventTouchUpInside];
         
         UIButton *compose=[UIButton buttonWithType:UIButtonTypeCustom];
-        compose.frame=CGRectMake(130, 103, 60, 60);
-        [compose setImage:[UIImage imageNamed:@"add_new.jpg"] forState:UIControlStateNormal];
+        compose.frame=CGRectMake(120, 250, 80, 80);
+        [compose setImage:[UIImage imageNamed:@"question-button.jpg"] forState:UIControlStateNormal];
         [compose addTarget:self action:@selector(composeNew) forControlEvents:UIControlEventTouchUpInside];
         [cover addSubview:compose];
         
@@ -106,12 +112,16 @@
                 [items removeAllObjects];
                 NSArray *array=[NSArray arrayWithArray:[resultDict objectForKey:@"querys"]];
                 for(int i=0; i<[array count]; i++){
-                    [items insertObject:[array objectAtIndex:i] atIndex:i];
+                    NSDictionary *cell_item=[array objectAtIndex:i];
+                    [items insertObject:cell_item atIndex:i];
+                    
+                    [[UserInfoContainer sharedInfo] check_insert:[cell_item objectForKey:@"phone"]];
                 }
                 
                 if(_tableView != nil)
                     [_tableView reloadData];
-
+                if(_mapView !=nil)
+                    [self addMarkers];
                 //[items insertObjects:array atIndexes:[NSIndexSet indexSetWithIndex:0]];
                 return;
             }
@@ -126,18 +136,21 @@
 }
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
-    cover.hidden=YES;
+    
     if(![[UserInfoContainer sharedInfo] isMale]){
+        [self addMarkers];
         
-        /*
-        self.navigationItem.rightBarButtonItem=[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCompose target:self action:@selector(composeNew)];
-        */
+        [self.view bringSubviewToFront:cover];
         cover.hidden=NO;
+        
         return;
+    }else{
+        cover.hidden=YES;
     }
     if([[UserInfoContainer sharedInfo] isMale]){
         [self getQuerys];
         [_tableView reloadData];
+        [self addMarkers];
     }
     
     
@@ -150,7 +163,7 @@
 
 
 -(void)composeNew{
-    //[[UserInfoContainer sharedInfo] addGirl:@"123"];
+    
     //return;
     TTURLAction *action = [TTURLAction actionWithURLPath:@"tt://upload/message"];
 	[action setAnimated:YES];
@@ -185,7 +198,7 @@
     if(_mapView == nil){
         _mapView=[[MKMapView alloc] initWithFrame:CGRectMake(0, 39, 320, self.view.frame.size.height-39)];
         //_map.showsUserLocation=YES;
-        //_mapView.delegate=self;
+        _mapView.delegate=self;
         MKCoordinateRegion newRegion;
         newRegion.center.latitude = 36.371638;
         newRegion.center.longitude = 127.360894;
@@ -193,6 +206,8 @@
         newRegion.span.longitudeDelta = 0.013335;
         [_mapView setRegion:newRegion animated:YES];
         [self.view addSubview:_mapView];
+        
+        [self addMarkers];
     }
     _mapView.hidden=NO;
 }
@@ -220,7 +235,7 @@
     TTStyledTextLabel *msgLabel = [[[TTStyledTextLabel alloc] initWithFrame:CGRectMake(44, 5, 260, 30)] autorelease];
     msgLabel.text = [TTStyledText textFromXHTML:[NSString stringWithFormat:@"<a href=\"tt://profile/%@\">%@</a> %@", 
                                                  [item objectForKey:@"phone"], 
-                                                 [item objectForKey:@"phone"], 
+                                                 [[UserInfoContainer sharedInfo] getGirlName:[item objectForKey:@"phone"]], 
                                                  [item objectForKey:@"message"]]
                                      lineBreaks:YES URLs:YES];
     msgLabel.font = [UIFont systemFontOfSize:14];
@@ -246,7 +261,7 @@
     
     [cell setMsgText:[NSString stringWithFormat:@"<a href=\"tt://profile/%@\">%@</a> %@", 
                       [item objectForKey:@"phone"], 
-                      [item objectForKey:@"phone"], 
+                      [[UserInfoContainer sharedInfo] getGirlName:[item objectForKey:@"phone"]], 
                       [item objectForKey:@"message"]]];
     
     cell.photoView.hidden=YES;
@@ -349,4 +364,70 @@
         usleep(50000);
     }
 }
+
+
+
+-(void)addMarkers{
+    if(!_mapView || _mapView == nil) return;
+    [_mapView removeAnnotations:_mapView.annotations];
+    for(int i=0; i<[items count]; i++){
+        NSDictionary *item = [items objectAtIndex:i];
+        if([[item objectForKey:@"lat"] floatValue] == 0.0 || [[item objectForKey:@"lng"] floatValue] == 0.0) continue;
+        QueryMarker *mapMarker=[[QueryMarker alloc] init];
+        mapMarker.coordinate = CLLocationCoordinate2DMake([[item objectForKey:@"lat"] floatValue], [[item objectForKey:@"lng"] floatValue]);
+        mapMarker.title=[[UserInfoContainer sharedInfo] getGirlName:[item objectForKey:@"phone"]];
+        mapMarker.subtitle=[item objectForKey:@"message"];
+        mapMarker.index=[NSNumber numberWithInt:i];
+        [_mapView addAnnotation:mapMarker];
+    }
+    
+}
+
+
+-(MKAnnotationView *)mapView:(MKMapView *)mapView viewForAnnotation:(id<MKAnnotation>)annotation{
+	NSString *reuseIdentifier = @"abcdefg";
+	MKPinAnnotationView *annotationView = (MKPinAnnotationView *)[mapView dequeueReusableAnnotationViewWithIdentifier:reuseIdentifier];
+	
+	if(annotationView == nil) {
+		annotationView = [[MKPinAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:reuseIdentifier];
+		annotationView.canShowCallout = YES;
+        annotationView.animatesDrop= YES;        
+	}
+	
+	[annotationView setAnnotation:annotation];
+	
+    UIButton *infoBtn = [UIButton buttonWithType:UIButtonTypeDetailDisclosure];
+	
+	annotationView.userInteractionEnabled = TRUE;
+	annotationView.canShowCallout = YES;
+	annotationView.rightCalloutAccessoryView = infoBtn;
+    
+    
+    UIImageView *imageView=[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"female.png"]];
+    //imageView.imageURL=[NSURL URLWithString:[item objectForKey:@"photo"]];
+    imageView.contentMode=UIViewContentModeScaleAspectFill;
+    imageView.frame=CGRectMake(2, 2, 30, 30);
+    imageView.clipsToBounds=YES;
+    imageView.layer.cornerRadius=2.5f;
+    
+	annotationView.leftCalloutAccessoryView = imageView;
+    
+	return annotationView;
+}
+
+- (void)mapView:(MKMapView *)mapView annotationView:(MKAnnotationView *)view calloutAccessoryControlTapped:(UIControl *)control{
+    QueryMarker *mk = (QueryMarker *) view.annotation;
+    NSDictionary *item=[items objectAtIndex:[mk.index intValue]];
+    [self didSelectAnnotation:item];
+}
+
+-(void)didSelectAnnotation:(NSDictionary *)item{
+    TTURLAction *action =  [[[TTURLAction actionWithURLPath:@"tt://query/detail"] 
+                             applyQuery:[NSDictionary dictionaryWithObject:item forKey:@"item"]]
+                            applyAnimated:YES];
+    //TTURLAction *action = [TTURLAction actionWithURLPath:@"tt://query/detail" ];
+    [action setAnimated:YES];
+    [[TTNavigator navigator] openURLAction:action];
+}
+
 @end

@@ -13,6 +13,8 @@
 
 #import "MBProgressHUD.h"
 
+#import "EGOImageView.h"
+
 @interface HistoryViewController : TTViewController <EGORefreshTableHeaderDelegate,UITableViewDelegate, UITableViewDataSource> {
     UITableView *_tableView;
     EGORefreshTableHeaderView *_refreshHeaderView;
@@ -23,6 +25,7 @@
     UIView *profileView;
     
     MBProgressHUD *HUD;
+    EGOImageView *chartView;
 }
 
 @property (nonatomic, retain) UITableView *_tableView;
@@ -32,6 +35,6 @@
 -(void)recentBtnClicked;
 
 -(void)getHistory;
-
+-(void)getProfileChart;
 -(void *)showHUD:(NSString *)message type:(int)type;
 @end

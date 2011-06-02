@@ -82,6 +82,13 @@
         profile.clipsToBounds=YES;
         [headerView addSubview:profile];
         
+        
+        UIButton *btn=[UIButton buttonWithType:UIButtonTypeCustom];
+        btn.frame=CGRectMake(10, 10, 100, 100);
+        [headerView addSubview:btn];
+        [btn addTarget:self action:@selector(btnClicked) forControlEvents:UIControlEventTouchUpInside];
+        
+        
         TTTabBar *_tabBar2 = [[TTTabBar alloc] initWithFrame:CGRectMake(0, 120,320, 40)];
         _tabBar2.tabItems = [NSArray arrayWithObjects:
                              [[[TTTabItem alloc] initWithTitle:@"Edit Profile"] autorelease],
@@ -230,17 +237,18 @@
     NSString *genderSymbol=@"♂";
     if([user isMale]){
         profile.image=[UIImage imageNamed:@"male.png"];
+        profile.imageURL=[NSURL URLWithString:[[UserInfoContainer sharedInfo] getUserPicture:[user phone]]];
+
     }else{
         profile.image=[UIImage imageNamed:@"female.png"];
+        profile.imageURL=[NSURL URLWithString:[[UserInfoContainer sharedInfo] getUserPicture:[user phone]]];
     }
 
     gender.text=[NSString stringWithFormat:@"%@ %@",user.name , genderSymbol];
     phone.text=[NSString stringWithFormat:@"전화번호 %@",user.phone];
     age.text=[NSString stringWithFormat:@"나이 %@세",user.age];
     dept.text=[NSString stringWithFormat:@"전공 %@",user.majorIn];
-    if([user isMale]){
-        profile.image=[UIImage imageNamed:@"male.png"];
-    }
+    
     
     deptField.text=user.majorIn;
     ageField.text=user.age;
@@ -429,4 +437,89 @@
     }
 }
 
+
+
+-(void)btnClicked{
+    UIActionSheet *popupQuery = [[UIActionSheet alloc] initWithTitle:@"" delegate:self cancelButtonTitle:@"취소" destructiveButtonTitle:nil otherButtonTitles:@"사진 찍기",@"보관함에서 선택하기", nil];
+	popupQuery.actionSheetStyle = UIActionSheetStyleBlackOpaque;
+	[popupQuery showInView:self.view];
+	[popupQuery release];
+}
+-(void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
+	if (buttonIndex == 0) {
+		if([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]){
+            imagePickerController = [[UIImagePickerController alloc] init];
+            imagePickerController.delegate = self;
+            imagePickerController.sourceType = 
+            UIImagePickerControllerSourceTypeCamera;
+            imagePickerController.allowsEditing=YES;
+            [self presentModalViewController:imagePickerController animated:YES];
+		}
+	} else if (buttonIndex == 1) {
+		[actionSheet resignFirstResponder];
+        imagePickerController = [[UIImagePickerController alloc] init];
+        imagePickerController.delegate = self;
+        imagePickerController.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+        imagePickerController.allowsEditing=YES;
+        [self presentModalViewController:imagePickerController animated:YES];
+	} else if (buttonIndex == 2) {
+		//NSLog(@"3Destructive Button Clicked");
+	}
+}
+
+- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
+{
+	[self dismissModalViewControllerAnimated:YES];
+	UIImage * img = [info objectForKey:@"UIImagePickerControllerEditedImage"];
+	//PHOTO_UPLOAD_URL
+    
+    [self uploadPicture:img];
+}
+
+-(void)uploadPicture:(UIImage *)image{
+    ASIFormDataRequest *request = [ASIFormDataRequest requestWithURL:[NSURL URLWithString:PHOTO_UPLOAD_URL]];
+    //NSLog(@"%@/%@/%@/%@",user.phone, deptField.text, ageField.text,[NSString stringWithFormat:@"%d",typeSegment.selectedSegmentIndex+1]);
+    [request addPostValue:[[UserInfoContainer sharedInfo] phone] forKey:@"phone"];    
+    NSData* imageData=UIImagePNGRepresentation(image);
+    [request addFile:imageData withFileName:[NSString stringWithFormat:@"%@.png",[[UserInfoContainer sharedInfo] phone]] andContentType:@"image/jpeg" forKey:@"photo"];
+    [request startSynchronous];
+    NSError *error = [request error];
+    if (!error) {
+        [HUD hide:YES];
+        NSString *response = [request responseString];
+        
+        NSError *jsonError = NULL;
+        NSDictionary *resultDict = [NSDictionary dictionaryWithJSONString:response error:&jsonError];
+        if(!jsonError){
+            NSLog(@"%@",resultDict);
+            if([[resultDict objectForKey:@"code"] intValue] == 1){
+                [self showHUD:[resultDict objectForKey:@"message"] type:TYPE_ERROR];
+            }else{
+                [self showHUD:@"Success" type:TYPE_SUCCESS];
+                [self getUserInfo];
+                [self updateUserInfo];
+            }
+        }else{
+            NSLog(@"Original response: %@",response);
+        }
+        
+    }else{
+        [HUD hide:YES];
+        [self showHUD:[error localizedDescription] type:TYPE_ERROR];
+        NSLog(@"%@",[error localizedDescription]);
+    }
+    
+}
+
+- (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker{
+	[self dismissModalViewControllerAnimated:YES];
+	
+}
+
+
+
 @end
+
+
+
+

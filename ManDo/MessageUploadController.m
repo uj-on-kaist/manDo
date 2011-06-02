@@ -29,30 +29,8 @@
     if (self) {
         self.title=@"메시지 입력";
         self.textView.font=[UIFont boldSystemFontOfSize:16.0f];
-        geoButton=[UIButton buttonWithType:UIButtonTypeCustom];
-        geoButton.frame=CGRectMake(270, 195, 40, 40);
-        geoButton.contentMode=UIViewContentModeScaleAspectFit;
-        [geoButton setImage:[UIImage imageNamed:@"pin.png"] forState:UIControlStateNormal];
-        [geoButton addTarget:self action:@selector(geoClicked) forControlEvents:UIControlEventTouchUpInside];
-        checkGeo=[[UIImageView alloc]initWithImage:[UIImage imageNamed:@"icon-check.png"]];
-        checkGeo.frame=CGRectMake(22, 24, 12, 12);
-        checkGeo.hidden=YES;
-        [geoButton addSubview:checkGeo];
-        [self.view addSubview:geoButton];
         
-        imageButton=[UIButton buttonWithType:UIButtonTypeCustom];
-        imageButton.frame=CGRectMake(235, 195, 40, 40);
-        imageButton.contentMode=UIViewContentModeScaleAspectFit;
-        imageButton.clipsToBounds=YES;
-        imageButton.imageView.clipsToBounds=YES;
-        [imageButton setImage:[UIImage imageNamed:@"upload-photo.png"] forState:UIControlStateNormal];
-        [imageButton addTarget:self action:@selector(imgClicked) forControlEvents:UIControlEventTouchUpInside];
-        
-        checkImage=[[UIImageView alloc]initWithImage:[UIImage imageNamed:@"icon-check.png"]];
-        checkImage.frame=CGRectMake(24, 24, 12, 12);
-        [imageButton addSubview:checkImage];
-        checkImage.hidden=YES;
-        [self.view addSubview:imageButton];
+        [self setting];
     }
     return self;
 }
@@ -61,36 +39,55 @@
     if (self != nil) {
         self.title=@"메시지 입력";
         self.textView.font=[UIFont boldSystemFontOfSize:16.0f];
-        geoButton=[UIButton buttonWithType:UIButtonTypeCustom];
-        geoButton.frame=CGRectMake(270, 195, 40, 40);
-        geoButton.contentMode=UIViewContentModeScaleAspectFit;
-        [geoButton setImage:[UIImage imageNamed:@"pin.png"] forState:UIControlStateNormal];
-        [geoButton addTarget:self action:@selector(geoClicked) forControlEvents:UIControlEventTouchUpInside];
-        checkGeo=[[UIImageView alloc]initWithImage:[UIImage imageNamed:@"icon-check.png"]];
-        checkGeo.frame=CGRectMake(22, 24, 12, 12);
-        checkGeo.hidden=YES;
-        [geoButton addSubview:checkGeo];
-        [self.view addSubview:geoButton];
         
-        imageButton=[UIButton buttonWithType:UIButtonTypeCustom];
-        imageButton.frame=CGRectMake(235, 195, 40, 40);
-        imageButton.contentMode=UIViewContentModeScaleAspectFit;
-        imageButton.clipsToBounds=YES;
-        imageButton.imageView.clipsToBounds=YES;
-        [imageButton setImage:[UIImage imageNamed:@"upload-photo.png"] forState:UIControlStateNormal];
-        [imageButton addTarget:self action:@selector(imgClicked) forControlEvents:UIControlEventTouchUpInside];
-        
-        checkImage=[[UIImageView alloc]initWithImage:[UIImage imageNamed:@"icon-check.png"]];
-        checkImage.frame=CGRectMake(24, 24, 12, 12);
-        [imageButton addSubview:checkImage];
-        checkImage.hidden=YES;
-        [self.view addSubview:imageButton];
+        [self setting];
         
         self.additional = [query objectForKey:@"additional"];
         NSLog(@"additional %@",self.additional);
         
     }
     return self;
+}
+-(void)setting{
+    NSLog(@"SEtting");
+    geoButton=[UIButton buttonWithType:UIButtonTypeCustom];
+    geoButton.frame=CGRectMake(270, 195, 40, 40);
+    geoButton.contentMode=UIViewContentModeScaleAspectFit;
+    [geoButton setImage:[UIImage imageNamed:@"pin.png"] forState:UIControlStateNormal];
+    [geoButton addTarget:self action:@selector(geoClicked) forControlEvents:UIControlEventTouchUpInside];
+    checkGeo=[[UIImageView alloc]initWithImage:[UIImage imageNamed:@"icon-check.png"]];
+    checkGeo.frame=CGRectMake(22, 24, 12, 12);
+    checkGeo.hidden=YES;
+    [geoButton addSubview:checkGeo];
+    [self.view addSubview:geoButton];
+    
+    imageButton=[UIButton buttonWithType:UIButtonTypeCustom];
+    imageButton.frame=CGRectMake(235, 195, 40, 40);
+    imageButton.contentMode=UIViewContentModeScaleAspectFit;
+    imageButton.clipsToBounds=YES;
+    imageButton.imageView.clipsToBounds=YES;
+    [imageButton setImage:[UIImage imageNamed:@"upload-photo.png"] forState:UIControlStateNormal];
+    [imageButton addTarget:self action:@selector(imgClicked) forControlEvents:UIControlEventTouchUpInside];
+    
+    checkImage=[[UIImageView alloc]initWithImage:[UIImage imageNamed:@"icon-check.png"]];
+    checkImage.frame=CGRectMake(24, 24, 12, 12);
+    [imageButton addSubview:checkImage];
+    checkImage.hidden=YES;
+    [self.view addSubview:imageButton];
+    
+    if(![[UserInfoContainer sharedInfo] isMale]){
+        NSLog(@"female");
+        imageButton.hidden=YES;
+        geoButton.hidden=NO;
+        
+    }else{
+        NSLog(@"male");
+        imageButton.hidden=NO;
+        geoButton.hidden=YES;
+        imageButton.frame=geoButton.frame;
+        [self.view bringSubviewToFront:imageButton];
+        //imageButton.frame= geoButton.frame;
+    }
 }
 
 -(void)viewDidLoad{
@@ -99,14 +96,17 @@
 
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
+    NSLog(@"123123: %@",[UserInfoContainer sharedInfo].gender);
     if(![[UserInfoContainer sharedInfo] isMale]){
+        NSLog(@"female");
         imageButton.hidden=YES;
         geoButton.hidden=NO;
         
     }else{
+        NSLog(@"male");
         imageButton.hidden=NO;
         geoButton.hidden=YES;
-        imageButton.frame= geoButton.frame;
+        //imageButton.frame= geoButton.frame;
     }
 }
 
@@ -142,6 +142,11 @@
     ASIFormDataRequest *request = [ASIFormDataRequest requestWithURL:[NSURL URLWithString:QUERY_ANSWER_URL]];
     [request addPostValue:[[UserInfoContainer sharedInfo] phone] forKey:@"user"];
     [request addPostValue:[additional objectForKey:@"phone"] forKey:@"target_user"];
+    
+    if(selectedImage != nil){
+        NSData* imageData=UIImagePNGRepresentation(selectedImage);
+        [request addFile:imageData withFileName:[NSString stringWithFormat:@"%@.png",[[UserInfoContainer sharedInfo] phone]] andContentType:@"image/jpeg" forKey:@"photo"];
+    }
     
     [request addPostValue:[additional objectForKey:@"query_id"] forKey:@"query_id"];
     [request addPostValue:self.textView.text forKey:@"message"];
@@ -254,7 +259,7 @@
 {
 	[self dismissModalViewControllerAnimated:YES];
 	UIImage * img = [info objectForKey:@"UIImagePickerControllerEditedImage"];
-    selectedImage=img;
+    selectedImage=[[UIImage alloc] initWithData:UIImagePNGRepresentation(img)];
     //[imageButton setImage:img forState:UIControlStateNormal];
     haveImage=YES;
     checkImage.hidden=NO;

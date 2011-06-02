@@ -49,7 +49,7 @@
     genderSelector.segmentedControlStyle=UISegmentedControlStyleBar;
     genderSelector.selectedSegmentIndex=0;
     
-    phoneField.keyboardType=UIKeyboardTypeNumberPad;
+    phoneField.keyboardType=UIKeyboardTypeNumbersAndPunctuation;
     phoneField.returnKeyType=UIReturnKeyGo;
     pwField.keyboardType=UIKeyboardTypeAlphabet;
     pwField.returnKeyType=UIReturnKeyGo;
@@ -313,7 +313,7 @@
         inputField=phoneField;
         [cell addSubview:genderSelector];
         inputField.placeholder=@"전화번호";
-        inputField.text=@"321";
+        inputField.text=@"010-5555-1111";
     }else{
         inputField=pwField;
         inputField.placeholder=@"비밀번호";

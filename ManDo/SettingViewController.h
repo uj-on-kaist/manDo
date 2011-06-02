@@ -13,7 +13,8 @@
 
 #import "MBProgressHUD.h"
 
-@interface SettingViewController : TTViewController <UITableViewDelegate, UITableViewDataSource, TTTabDelegate, UITextFieldDelegate>{
+@interface SettingViewController : TTViewController <UITableViewDelegate, UITableViewDataSource, TTTabDelegate, UITextFieldDelegate,
+UINavigationControllerDelegate,UIImagePickerControllerDelegate,UIActionSheetDelegate>{
     UITableView *_tableView;
     //UITableView *_infoView;
     
@@ -30,6 +31,8 @@
     
     MBProgressHUD *HUD;
     
+    UIImagePickerController *imagePickerController;
+    
     
 }
 
@@ -39,4 +42,5 @@
 -(void)doneButtonClicked;
 -(void)getUserInfo;
 -(void)updateUserInfo;
+-(void)uploadPicture:(UIImage *)image;
 @end

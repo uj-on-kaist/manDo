@@ -22,9 +22,14 @@
     UIImageView *photoView;
     UIImageView *geoView;
     
+    EGOImageView *answerImageView;
+    
+    UIButton *imageButton;
+    
 }
 
 @property (nonatomic, retain) EGOImageView *profileView;
+@property (nonatomic, retain) EGOImageView *answerImageView;
 
 @property (nonatomic, retain) UILabel *nameLabel;
 
@@ -38,6 +43,8 @@
 @property (nonatomic, retain) UIImageView *photoView;
 
 @property (nonatomic, retain) UIImageView *geoView;
+
+@property (nonatomic, retain) UIButton *imageButton;
 //nameLabel,dateLabel,textView,msgLabel
 
 -(void)setMsgText:(NSString *)input;

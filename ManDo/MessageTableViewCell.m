@@ -11,7 +11,7 @@
 
 @implementation MessageTableViewCell
 
-@synthesize profileView,nameLabel,dateLabel,textView,msgLabel,geoView,photoView;
+@synthesize profileView,nameLabel,dateLabel,textView,msgLabel,geoView,photoView,answerImageView,imageButton;
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {
@@ -63,6 +63,20 @@
         geoView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"pinSmall.png"]];
         geoView.frame=CGRectMake(295, 5, 16, 16);
         [self addSubview:geoView];
+        
+        answerImageView = [[EGOImageView alloc] initWithPlaceholderImage:nil delegate:nil];
+        answerImageView.frame=CGRectMake(44, 0, 80,80);
+        answerImageView.contentMode=UIViewContentModeScaleToFill;
+        [self addSubview:answerImageView];
+        answerImageView.hidden=YES;
+        
+        imageButton=[UIButton buttonWithType:UIButtonTypeCustom];
+        imageButton.frame=answerImageView.frame;
+        [self addSubview:imageButton];
+        imageButton.backgroundColor=RGBACOLOR(70, 105, 100,0.3);
+        imageButton.hidden=YES;
+        [imageButton addTarget:self action:@selector(openPicture) forControlEvents:UIControlEventTouchUpInside];
+        
     }
     return self;
 }
@@ -78,6 +92,12 @@
 {
     [super dealloc];
 }
+-(void)openPicture{
+    NSLog(@"%@",[answerImageView.imageURL absoluteString]);
+    TTURLAction *action = [TTURLAction actionWithURLPath:[answerImageView.imageURL absoluteString]];
+	[action setAnimated:YES];
+	[[TTNavigator navigator] openURLAction:action];
+}
 
 
 -(void)setMsgText:(NSString *)input{
@@ -88,6 +108,8 @@
     
     
     dateLabel.frame=CGRectMake(44, msgLabel.frame.size.height+8, 320, 14);
+    answerImageView.frame=CGRectMake(44, msgLabel.frame.size.height+30, 80,80);
+    imageButton.frame=answerImageView.frame;
 }
 
 

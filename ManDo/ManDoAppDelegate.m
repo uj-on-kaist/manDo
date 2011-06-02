@@ -22,11 +22,13 @@
 #import "SettingViewController.h"
 
 #import "MessageUploadController.h"
-
+#import "MessageDetailViewController.h"
 #import "QueryDetailView.h"
 
 #import "StyleSheet.h"
 #import "Three20/Three20.h"
+
+#import "UserInfoContainer.h"
 @implementation ManDoAppDelegate
 
 
@@ -51,6 +53,8 @@
     [map from:@"tt://home" toViewController:[ManDoViewController class]];
     [map from:@"tt://history" toViewController:[HistoryViewController class]];
     [map from:@"tt://message" toViewController:[MessageViewController class]];
+    [map from:@"tt://message/detail" toViewController:[MessageDetailViewController class]];
+
     [map from:@"tt://setting" toViewController:[SettingViewController class]];
     
     [map from:@"tt://query/detail" toViewController:[QueryDetailView class]];
@@ -74,6 +78,9 @@
     window.backgroundColor=[UIColor clearColor];
     
     
+    //[[UserInfoContainer sharedInfo] getMyList];
+    
+    //NSLog(@"%@",[[UserInfoContainer sharedInfo] getGirlName:@"123"]);
 	//}
 }
 

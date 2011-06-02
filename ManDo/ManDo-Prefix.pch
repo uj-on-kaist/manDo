@@ -30,6 +30,15 @@
 #define GET_HISTORY_URL @"http://bit.sparcs.org:9999/querys/get_history"
 
 
+#define GET_ANSWER_URL @"http://bit.sparcs.org:9999/querys/get_answer"
+
+#define LIKE_ANSWER_URL @"http://bit.sparcs.org:9999/querys/set_like"
+
+#define GET_CHART_URL @"http://bit.sparcs.org:9999/querys/get_portion_chart"
+
+
+#define PHOTO_UPLOAD_URL @"http://bit.sparcs.org:9999/accounts/picture_upload/"
+
 #define TYPE_LOADING 0
 #define TYPE_SUCCESS 1
 #define TYPE_ERROR 2

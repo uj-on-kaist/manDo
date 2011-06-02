@@ -506,8 +506,8 @@
 	
 	self.indicator = nil;
 	
-    [targetForExecution release];
-    [objectForExecution release];
+    //[targetForExecution release];
+    //[objectForExecution release];
 	
     [self hide:useAnimation];
 }

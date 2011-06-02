@@ -42,4 +42,10 @@
 
 
 -(void)addGirl:(NSString *)phoneNumber;
+
+-(NSString *)getGirlName:(NSString *)phoneNumber;
+-(void)check_insert:(NSString *)phoneNumber;
+
+
+-(NSString *)getUserPicture:(NSString *)phoneNumber;
 @end

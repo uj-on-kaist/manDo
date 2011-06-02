@@ -14,7 +14,7 @@
 
 #import "HUDShowMaker.h"
 
-@interface SignUpController : TTViewController <UITableViewDataSource, UITableViewDelegate,UIImagePickerControllerDelegate, UIActionSheetDelegate,ProfileViewDelegate,UINavigationControllerDelegate> {
+@interface SignUpController : TTViewController <UITableViewDataSource, UITableViewDelegate,UINavigationControllerDelegate,UIImagePickerControllerDelegate, UIActionSheetDelegate,ProfileViewDelegate> {
     UITableView *_tableView;
     
     UITextField *deptField;

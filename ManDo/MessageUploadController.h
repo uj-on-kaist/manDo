@@ -36,4 +36,5 @@
 -(void *)showHUD:(NSString *)message type:(int)type;
 -(void)postMale;
 -(void)postFemale;
+-(void)setting;
 @end
